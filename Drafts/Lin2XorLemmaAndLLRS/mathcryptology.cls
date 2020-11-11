@@ -213,15 +213,24 @@
 		
 		\bigskip
 		
-		{\Large\articleauthors} % Authors
+		{\centerline{\Large\articleauthors}} % Authors
+		
+
+		\begin{center}
+		    {\articleaffiliations} % Affiliations
+	    \end{center}
+	    
 		
 		\medskip
 		
-		\articleaffiliations % Affiliations
+%		{\centerline{\correspondingauthoremail}}
+		
+%		\medskip
+		
 		
 		\medskip
 		
-		{\small\itshape Received: \receiveddate~~|~~Revised: \revisiondate~~|~~Accepted: \accepteddate} % Dates
+%		{\small\itshape Received: \receiveddate~~|~~Revised: \revisiondate~~|~~Accepted: \accepteddate} % Dates
 		
 		%------------------------------------------------
 		
@@ -237,7 +246,7 @@
 		
 		\smallskip
 		
-		\textbf{2010 Mathematics Subject Classification:} \MSClassification % Keywords
+%		\textbf{2010 Mathematics Subject Classification:} \MSClassification % Keywords
 		
 		\bigskip % Whitespace under the article information
 		
@@ -256,7 +265,7 @@
 	%------------------------------------------------
 	
 	\renewcommand{\thefootnote}{\fnsymbol{footnote}} % Stop footnote numbering
-	\footnotetext{\aff{*}Corresponding Author: \email{\correspondingauthoremail}} % Corresponding author footnote
+%	\footnotetext{\aff{*}Corresponding Author: \email{\correspondingauthoremail}} % Corresponding author footnote
 	\renewcommand{\thefootnote}{\arabic{footnote}} % Resume footnote numbering
 }
 

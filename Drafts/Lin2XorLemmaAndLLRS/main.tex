@@ -44,13 +44,13 @@
     % Authors with their affiliation numbers; affiliations are specified with: \aff{<numbers or symbols separated by commas>}
     % Use a star (*) to specify the corresponding author
     %\articleauthors{Jennifer Lee\aff{1,*}, James Smith\aff{1,2}}
-    \articleauthors{Anton A. Sokolov}
+    \articleauthors{Anton A. Sokolov \aff{1,2}}
 
     % Affiliation locations using the same numbers specified in \articleauthors above
-    %\articleaffiliations{
-    %    \aff{1}Department of Physics, Faculty of Science, University of Springfield\\
-    %    \aff{2}Department of Statistics, Faculty of Science, Another University
-    %}
+    \articleaffiliations{
+        \aff{1} Independent researcher, \textbf{acmxddk@gmail.com} \\
+        \aff{2} Zano, \textbf{anton@zano.org}
+    }
 
     \correspondingauthoremail{acmxddk@gmail.com} % Email address of the corresponding author
 
@@ -136,6 +136,19 @@
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{firstpage}{
+	\fancyhf{}
+	\cfoot{\thepage}
+}
+\fancypagestyle{main}{
+	\fancyhf{}
+	\cfoot{\thepage}
+}
+\pagestyle{main}
+
 \begin{document}
 
 \begin{NoHyper}
@@ -196,7 +209,7 @@
 %%%%%%%%%%%%%%%%%%%%
 % 1.1.2. L2S set membership proof protocol
 \subsubsection{L2S set membership proof protocol}
-    We construct an $n$-move public coin L2S set membership proof protocol on the base of the Lin2-Selector lemma pure $n$-move public coin protocol.
+    We construct an $n$-move public coin set membership proof protocol, called L2S protocol, on the base of the Lin2-Selector lemma pure $n$-move public coin protocol.
 
     The L2S protocol inherits the properties of the Lin2-Selector lemma pure protocol and, thus, convinces a verifier that a commitment $Z=k_{0}P_{s}+k_{1}Q_{s}$ is built over a member $\left(P_{s}, Q_{s}\right)$ of a set of element pairs with unknown discrete logarithm relationship between the elements from all the pairs.
 
@@ -215,7 +228,7 @@
     Requiring the anonymity sets to be the sets of orthogonal generators for the mL2SHPoM scheme, we completely drop this limitation for the mL2SLnkSig signature scheme.
 
     We present our mL2SLnkSig signature scheme as a general-purpose log-size solution for the linkable ring signature problem, when the anonymity set is allowed to be an arbitrary set of distinct public keys.
-
+    
     The mL2SLnkSig signature is signer-ambiguous under the DDH in the ROM, it keeps this property even for the cases when relationship between the public keys is known to an adversary.
 
 
@@ -258,14 +271,14 @@
     
     In other words, the Lin2-Xor lemma states that the above protocol successfully completes only if the prover knows scalars $a$ and $b$ such that
     \begin{align*}
-        (Z=aP_{1}+bQ_{1}) \text{ or } (Z=aP_{2}+bQ_{2}).
+        (Z=aP_{1}+bQ_{1}) \oplus (Z=aP_{2}+bQ_{2}).
     \end{align*}     
     
-    After the Lin2-Xor lemma protocol successful completion the verifier is convinced that $Z$ is a linear combination of either $(P_{1}$, $Q_{1})$ or $(P_{2}$, $Q_{2})$. There exists no possibility for $Z$ to be a linear combination of all the four elements, e.g., like $Z=aP_{1}+ bP_{2}+dQ_{1}+eQ_{2}$ with known to the prover non-zero $a, b, d, e$.  
+    After the Lin2-Xor lemma protocol successful completion the verifier is convinced that $Z$ is a linear combination of either $(P_{1}$, $Q_{1})$ or $(P_{2}$, $Q_{2})$. There exists no possibility for $Z$ to be, for instance, a linear combination of all the four elements, e.g., to be $Z=aP_{1}+ bP_{2}+dQ_{1}+eQ_{2}$ with known to the prover non-zero $a, b, d, e$.  
     
     Moreover, after the protocol successful completion the verifier is convinced that $H_{1}$ is also a linear combination of either $(P_{1}$, $Q_{1})$ or $(P_{2}$, $Q_{2})$, that is, $H_{1}$ possesses a similar property:
     \begin{align*}
-        (H_{1}=fP_{1}+gQ_{1}) \text{ or } (H_{1}=fP_{2}+gQ_{2})
+        (H_{1}=fP_{1}+gQ_{1}) \oplus (H_{1}=fP_{2}+gQ_{2})
     \end{align*}          
     for some known to the prover $f, g$.
     
@@ -274,7 +287,7 @@
 \subsubsection{Corollary of Lin2-Xor lemma}
     As a corollary we get that if the Lin2-Xor lemma protocol is successfully completed, then the verifier is convinced that the prover knows some secret scalar $x$ such that
     \begin{align*}
-        (Z+r_{1}H_{1}=x(P_{1}+c_{11}Q_{1})) \text{ or } (Z+r_{1}H_{1}=x(P_{2}+c_{13}Q_{2})).
+        (Z+r_{1}H_{1}=x(P_{1}+c_{11}Q_{1})) \oplus (Z+r_{1}H_{1}=x(P_{2}+c_{13}Q_{2})).
     \end{align*}       
     
 %%%%%%%%%%%%%%%%%%%%
@@ -294,7 +307,7 @@
         (Z+r_{1}H_{1}+r_{2}H_{2}) & =x((P_{1}+c_{11}Q_{1})+c_{21}(P_{2}+c_{13}Q_{2})),\\
         (Z+r_{1}H_{1}+r_{2}H_{2}) & = x((P_{3}+c_{11}Q_{3})+c_{23}(P_{4}+c_{13}Q_{4}))
     \end{align*}
-    holds for some known to the prover $x$. Applying the Lin2-Xor lemma to that equality that holds, suppose, to the first one, we find that $Z$ is exactly one of $(a P_{1}+b Q_{1})$, $(a P_{2}+b Q_{2})$ for some known to the prover $a$, $b$.
+    holds for some known to the prover $x$. Applying the Lin2-Xor lemma to that equality that holds, suppose, to the first one, we find that $Z$ is exactly one of $(a P_{1}+b Q_{1})$, $(a P_{2}+b Q_{2})$ for some known to the prover $a$, $b$. The same is for the case if the second equality holds.
 
     For a set of ${2}^{n-1}$ pairs ${\left\{ \left(P_{j}, Q_{j}\right)\right\}}_{j=0}^{2^{n-1}-1}$, the Lin2-Selector lemma provides a general method and a protocol for constructing $R$ such that
     \begin{equation*}
@@ -308,14 +321,12 @@
 \subsubsection{Pure protocols and soundness}
     Overall, the following three lemmas: Lin2, Lin2-Xor, and Lin2-Selector have similar structure of their premises and conclusions in our work.
 
-    The structure is: a premise declares necessary assumptions about the publicly seen values and defines, as we call it, a pure protocol. A conclusion is that if the assumptions hold and the protocol is successfully completed, then verifier is convinced that prover knows some secret values.
+    The structure is: a premise declares necessary assumptions about the publicly seen values and defines, as we call it, a pure protocol. A conclusion is that of, if the assumptions hold and the protocol is successfully completed, then verifier is convinced that prover knows some secret values.
 
     A pure protocol specifies what the verifier has to do in detail, however, it doesn't specify the same for the prover. It describes only what the prover has to reply to the verifier without specifying how it prepares the replies.
-
     With this structure we are able to prove the pure protocol soundness, i.e., that the successful protocol completion implies the prover's knowledge of the secret values. The Lin2, Lin2-Xor, and Lin2-Selector lemmas provide the proofs of soundness for their pure protocols.
 
     We don't consider completeness and zero-knowledge for the pure protocols, as these properties depend on how the prover prepares the replies.
-
     If a pure protocol soundness is proven, then a derived protocol defining prover's behavior in details inherits the soundness. Once the prover's behavior is completely defined in the derived protocol, we consider completeness and zero-knowledge for it.
     
 
@@ -324,9 +335,9 @@
 \subsubsection{Soundness proofs for the pure protocols}
     We assume the prover and verifier are probabilistic polynomial-time Turing machines equipped with a common tape, where they write their conversation transcript. 
     
-    When we prove soundness for a pure protocol, the verifier is assumed honest, whereas the prover is regarded as having a dishonest subroutine, that produces with overwhelming probability acceptable replies to the uniformly random challenges, such that the protocol completes successfully.
+    When we prove soundness for a pure protocol, the verifier is assumed honest, whereas the prover is regarded as having a dishonest subroutine, that with overwhelming probability produces acceptable replies to the uniformly random challenges, such that the protocol completes successfully.
 
-    To prove soundness for the Lin2 lemma protocol we suppose that the secret values in question are not known to the prover. We consider two successful Lin2 lemma protocol transcripts, one of which is that of the prover-verifier conversation, and the other one is that the prover is capable of obtaining itself by calling the dishonest subroutine for another set of challenges taken from its random tape. We demonstrate a polynomial-time algorithm that extracts the secret values in question from these two transcripts using known to the prover information. Thus, we show that even not knowing these values the prover is capable of getting them in polynomial time once it is able to successfully complete the protocol. Therefore, the protocol is sound.
+    To prove soundness for the Lin2 lemma protocol we suppose that the secret values in question are not known to the prover. We consider two successful Lin2 lemma protocol transcripts, one of which is that of the prover-verifier conversation, and the other one is that the prover obtains itself by calling the dishonest subroutine for another set of challenges taken from its random tape. We demonstrate a polynomial-time algorithm that extracts the secret values in question from these two transcripts using known to the prover information. Thus, we show that even not knowing these values the prover is capable of getting them in polynomial time once it is able to successfully complete the protocol. Therefore, the protocol is sound.
     
     We use the same method for the Lin2-Xor lemma protocol, with the only difference that we don't demonstrate a polynomial-time extractor algorithm, we gradually find which values can be obtained by the prover in polynomial time and finally show that the values in question are among them. That is, we prove that a polynomial-time extactor can be built by the prover.
     
@@ -352,8 +363,8 @@
 \section{Preliminaries}
     \begin{itemize}
         \item Let $\mathds{G}$ be a cyclic group of prime order in which the discrete logarithm problem is hard, and let $\mathds{F}$ be a scalar field of $\mathds{G}$. The field $\mathds{F}$ is finite, of the same order as $\mathds{G}$.
-        \item Let lowercase italic letters and words $a$, $b$, ${sum}$, $\dots$ designate scalars in $\mathds{F}$. Sometimes indices and apostrophes are appended: $a_{12}$, $b'$, ${sum}_{1}$, $\dots$ . Also, lowercase italic letters and words can be used to designate integers used as indices, e.g., $i$, $j_{1}$, ${idx}_{1}$, ${\dots}$ , this usage is clear from the context.
-        \item Let the uppercase italic letters and words $A$, $B$, $X$, $P$, $H$, ${\dots}$ denote the elements of $\mathds{G}$. Indices and apostrophes can be appended: $A_{1}$, $B'$, $X_{12}$, $P_{11}$, $H_{1}$, ${\dots}$. Also, italic uppercase letters denote sets and integers that is clear from the context. The letters $N$ and $M$ are reserved for integer powers of $2$.
+        \item Let lowercase italic letters and words $a$, $b$, ${sum}$, $\dots$ denote scalars in $\mathds{F}$. Sometimes indices and apostrophes are appended: $a_{12}$, $b'$, $s_{1}^{p}$, ${sum}_{1}$, $\dots$ . Also, lowercase italic letters and words can be used to designate integers used as indices, e.g., $i$, $j_{1}$, ${idx}_{1}$, $\dots$, this usage is clear from the context.
+        \item Let uppercase italic letters and words $A$, $B$, $X$, $P$, $H$, ${\dots}$ denote the elements of $\mathds{G}$. Indices and apostrophes can be appended: $A_{1}$, $B'$, $X_{12}$, $P_{11}$, $Z_{0}^{p}$, ${\dots}$. Also, uppercase italic letters denote sets and, sometimes, integers, that is clear from the context. The letters $N$ and $M$ are reserved for integer powers of $2$.
         \item Let $0$ denote the zero element of $\mathds{G}$ and also denote the zero scalar in $\mathds{F}$, it's easy to distinguish its meaning from the context.
         \item Let $G$ be a generator of $\mathds{G}$. As $\mathds{G}$ is a prime-order group, any non-zero element $A$ is a generator of $\mathds{G}$, hence we assume $G$ is an a-priory chosen element.
     \end{itemize}
@@ -387,7 +398,7 @@
 %%%%%%%%%%%%%%%%%%%%
 % 2.2.2. Sets and vectors
 \subsubsection{Sets and vectors}
-    Sets are assumed having cardinalities that are polynomial in $\bm{\lambdaup}$ everywhere. Vectors are ordered sets.
+    Sets are assumed having cardinalities that are polynomial in $\bm{\lambdaup}$ everywhere, of course, excluding the $\mathds{G}$ and $\mathds{F}$. Vectors are ordered sets.
 
     Sets are denoted by uppercase italic letters or curly brackets. Vectors of scalars or elements are denoted using either square brackets $[]$ or arrows over italic lowercase or uppercase letters, respectively: $\vec{x}$, $\vec{X}$.
 
@@ -418,7 +429,7 @@
 
     Using the law and implication, if we can obtain a contradiction by guessing $A\sim B$, then we obtain $A\notsim B$ and (not $A\sim B$). We can't obtain anything by guessing $A\notsim B$.
 
-    Thus, the denotations $A\sim B$ and $A\notsim B$ together with the above law and implication for them provide a shorthand for the common way of reasoning about the knowledge of the discrete logarithm relationship. That is, instead of writing, e.g., ``\textit{suppose, $x$ in the $A=xB$ is known, then ${\dots}$ this is a contradiction, hence, solving $A=xB$ is hard}'', we write
+    Thus, the denotations $A\sim B$ and $A\notsim B$ together with the above law and implication for them provide a shorthand for the common way of reasoning about the knowledge of the discrete logarithm relationship. That is, instead of writing, e.g., ``suppose, $x$ in the $A=xB$ is known, then ${\dots}$ this is a contradiction, hence, solving $A=xB$ is hard'', we write
     \begin{equation*}
         \left(A\sim B \Rightarrow {\dots} \Rightarrow \text{Contradiction}\right) \Rightarrow A\notsim B.
     \end{equation*}
@@ -493,7 +504,7 @@
 % 2.2.7. Random choice
 \subsubsection{Random choice}
     %
-    We use only uniform random choice of scalars over $\mathds{F}$ everywhere and call it simply `random choice'.
+    We use only uniform random choice of scalars over $\mathds{F}$ everywhere and call it simply `random choice'. The probability for a randomly chosen scalar to be zero is assumed to be negligible.
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -526,9 +537,16 @@
 
     The scalars in the sum are sometimes called `weights', although they don't carry any additional meaning except for being multipliers for the elements. That is, for instance, the weights aren't required to be comparable.
 
+%%%%%%%%%%%%%%%%%%%%
+% 2.2.11. Index pairs
+\subsubsection{Index pairs}
+Index pairs for the scalars and elements are usually written without separating commas: $a_{12}$, $c_{i1}$, $c_{ij}$, ${\dots}$. 
+To avoid ambiguity, when a two digit number is used as a single index, it is put into curly brackets, e.g., $X_{(12)}$. 
+
+The separating comma and brackets are used for the case when an index pair is a compound expression, e.g., $c_{1,(j+1)}$, $c_{i,(2j+1)}$, $c_{(2i),(2j+1)}$.
 
 %%%%%%%%%%%%%%%%%%%%
-% 2.2.11. Uniqueness
+% 2.2.12. Uniqueness
 \subsubsection{Uniqueness}
     We call a vector as unique under certain conditions, when there can be efficiently calculated exactly one vector satisfying the conditions. Calculating a different vector satisfying these conditions is hard. Two vectors are called different if they have at least one position with different items.
     
@@ -537,7 +555,8 @@
         \vec{x} \text{ is unique for the expression } 
         A=\sum_{i=1\dots{}n} x_iB_i
     \end{align*}
-    means that $\vec{x}$ is efficiently computable and it's hard to calculate a different scalar vector $\vec{y}$ such that the expression holds for it.
+    means that the scalar vector $\vec{x}$ is efficiently computable and it's hard to calculate a different vector $\vec{y}$ such that the expression holds for it.
+    
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -785,7 +804,7 @@
         where
         \begin{equation*}
             \left\{
-            \begin{array}{l}
+            \begin{array}{l}\label{Eq:2ast}\tag{**}
                 k_{1} = \left(r_{1} a' - r_{1}' a\right)                /\left(r_{1} - r_{1}'\right)\\
                 k_{2} = \left(r_{1} a' c_{11}' - r_{1}' a c_{11}\right) /\left(r_{1} - r_{1}'\right)\\
                 k_{3} = \left(r_{1} b'  - r_{1}' b \right) /\left(r_{1} - r_{1}'\right)\\
@@ -794,76 +813,106 @@
         \end{equation*}
         
         Verifier is convinced that Prover knows the scalars $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$, as it is convinced that all scalars at the right-hand sides of the above equalities are known to Prover. Moreover, as $\ort\left(P_{1}, Q_{1}, P_{2}, Q_{2}\right)$ and as $Z$, $P_{1}$, $Q_{1}$, $P_{2}$, $Q_{2}$ are fixed by premise, by the OrtUniqueRepresentation lemma Verifier is convinced that the scalars $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$ are constants. 
-
-        At least one of $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$ is non-zero, as the opposite contradicts to the premise of non-zero $Z$. Suppose $k_{1}\neq0$. From the first equality:
-        \begin{gather*}
+        At least one of $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$ is non-zero, as the opposite contradicts to the premise of non-zero $Z$. 
+        
+        With these properties, the system of equalities (\ref{Eq:2ast}\label{**}) implies that Verifier is convinced that the following conjunction of four statements holds: 
+        \begin{equation}
+            \left. \bm{\bigwedge}
+            \begin{array}{l}\label{Eq:3ast}\tag{***}
+            ((k_{1} \neq0) \wedge (k_{3} \neq0)) \Rightarrow \text{Contradiction} \\
+            ((k_{1} \neq0) \wedge (k_{4} \neq0)) \Rightarrow \text{Contradiction} \\
+            ((k_{2} \neq0) \wedge (k_{3} \neq0)) \Rightarrow \text{Contradiction} \\
+            ((k_{2} \neq0) \wedge (k_{4} \neq0)) \Rightarrow \text{Contradiction}
+        \end{array}\right.
+        \end{equation}        
+        
+        Here is the proof for the first statement in (\ref{Eq:3ast}\label{***}).        
+        Suppose $k_{1}\neq0$. From the first equality in (\ref{Eq:2ast}\label{**}):
+        \begin{align*}
             \left(r_{1} - r_{1}'\right) k_{1} =
-            \left(r_{1} a' - r_{1}'a\right) \Rightarrow
+            \left(r_{1} a' - r_{1}'a\right)  &\quad\Rightarrow \\
             r_{1} \left(a' - k_{1}\right) =
-            r_{1}' \left(a - k_{1}\right) \Rightarrow \\
+            r_{1}' \left(a - k_{1}\right) &\quad\Rightarrow \\
             \left(a' - k_{1}\right) / r_{1}' =
             \left(a - k_{1}\right)  / r_{1}
-        \end{gather*}
-        As the right-hand side of this equality depends only of the first transcript, and the left-hand side depends only of the second one, Verifier is convinced that both sides are equal to some constant $q$ known to Prover:
+        \end{align*}
+        As the right-hand side of this equality depends only on the first transcript, and the left-hand side depends only on the second one, Verifier is convinced that both sides are equal to some constant $q$ known to Prover:
         \begin{align*}
             \left(a' - k_{1}\right) / r_{1}' = q
-            & \text{ and }
-            \left(a-k_{1}\right) / r_{1} = q \Rightarrow \\
-            a' = q*r_{1}' + k_{1}
-            & \text{ and }
-            a=q*r_{1}+k_{1}\label{Eq:2ast}\tag{**}
+            & \quad\text{and}\quad
+            \left(a-k_{1}\right) / r_{1} = q \quad\Rightarrow \\
+            a' = qr_{1}' + k_{1}
+            & \quad\text{and}\quad
+            a=qr_{1}+k_{1}\label{Eq:4ast}\tag{****}
         \end{align*}
-        Let $t=\left(k_{2}/k_{1}\right)$. Dividing the equality for $k_{2}$ by the equality for $k_{1}$:
-        \begin{gather*}
-            t\left(r_{1} a' - r_{1}' a\right) =
-            \left(r_{1} a' c_{11}' - r_{1}' a c_{11}\right) \Rightarrow
-            r_{1}' a \left(c_{11} - t\right) =
-            r_{1} a' \left(c_{11}' - t\right) \Rightarrow \\
-            a\left(c_{11} -t\right) / r_{1} = a'\left(c_{11}' - t\right) / r_{1}'\label{Eq:3ast}\tag{***}
-        \end{gather*}
-        As the right-hand side of this equality depends only of the first transcript, and the left-hand
-        side depends only of the second one, Verifier is convinced that both sides are equal to some constant $w$ known to Prover:
+        Let $t=\left(k_{2}/k_{1}\right)$. Dividing the equality for $k_{2}$ by the equality for $k_{1}$ in (\ref{Eq:2ast}\label{**}):
         \begin{align*}
-            a \left(c_{11}  - t\right) / r_{1}  = w & \text{ and }
-            a'\left(c_{11}' - t\right) / r_{1}' = w \Rightarrow \\
-            r_{1} = a\left(c_{11} - t\right) / w & \text{ and }
-            r_{1}' = a'\left(c_{11}' - t\right)/w
-        \end{align*}        
-        Using equalities (\ref{Eq:2ast}\label{**}) for $a$ and $a'$:
-        \begin{align}
-            w r_{1}  = \left(q* r_{1}  + k_{1}\right) \left(c_{11}  - t\right)
-            &\quad\text{and}\quad
-            w r_{1}' = \left(q  r_{1}' + k_{1}\right) \left(c_{11}' - t\right)
-            \Rightarrow\nonumber\\
+            t\left(r_{1} a' - r_{1}' a\right) =
+            \left(r_{1} a' c_{11}' - r_{1}' a c_{11}\right) &\quad\Rightarrow \\
+            r_{1}' a \left(c_{11} - t\right) =
+            r_{1} a' \left(c_{11}' - t\right) &\quad\Rightarrow \\
+            a\left(c_{11} -t\right) / r_{1} = a'\left(c_{11}' - t\right) / r_{1}'
+        \end{align*}
+        As the right-hand side of this equality depends only on the first transcript, and the left-hand
+        side depends only on the second one, Verifier is convinced that both sides are equal to some constant $w$ known to Prover:
+        \begin{align*}
+            a \left(c_{11}  - t\right) / r_{1}  = w & \quad\text{and}\quad
+            a'\left(c_{11}' - t\right) / r_{1}' = w \quad\Rightarrow \\
+            wr_{1} = a\left(c_{11} - t\right) & \quad\text{and}\quad
+            wr_{1}' = a'\left(c_{11}' - t\right)
+        \end{align*}   
+        The constant $w$ is non-zero, as the opposite immediately leads to $a=0$ and $a'=0$, and, consequently, to a contradiction with $k_{1} \neq0$. \\             
+        Using the expression for $a$ from (\ref{Eq:4ast}\label{****}), we find $r_{1}$ from the above equality for $wr_{1}$:
+        \begin{align*}
+            w r_{1}  = \left(qr_{1}  + k_{1}\right) \left(c_{11}  - t\right)
+            &\quad\Rightarrow\\
             r_{1} \left(w-q\left(c_{11} -t\right)\right) = k_{1} \left(c_{11}  - t\right)
-            &\quad\text{and}\quad
-            r_{1}'\left(w-q\left(c_{11}'-t\right)\right) = k_{1} \left(c_{11}' - t\right)
-            \Rightarrow\nonumber\\
+            &\quad\Rightarrow\\
             r_{1} = k_{1} \left(c_{11} -t\right) / \left(w-q\left(c_{11} - t\right)\right)
-            &\quad\text{and}\quad
-            r_{1}'= k_{1} \left(c_{11}'-t\right) / \left(w-q\left(c_{11}'- t\right)\right)
-            \label{Eq:4ast}\tag{****}
-        \end{align}
-        Thus, Verifier is convinced that $r_{1}$ and $r_{1}'$ are expressed through the constants known to Prover and through the challenges $c_{11}$ and $c_{11}'$.
+            &\quad\Rightarrow\\
+            r_{1} = k_{1} / ((w / (c_{11}-t))-q)
+            \label{Eq:5ast}\tag{*****}
+        \end{align*}
+        Note, as the expressions $(w-q(c_{11}-t))$ and $(c_{11}-t)$ above contain only the randomness $c_{11}$ and the constants $w \neq0$, $t$, $q$, the probabilities for each of them to be zero are negligible, so we can divide by them.  
+        
+        Thus, according to (\ref{Eq:5ast}\label{*****}), Verifier is convinced that if $k_{1}\neq0$, then $r_{1}$ is expressed through the constants known to Prover and through the challenge $c_{11}$.
+        
+        Suppose $k_{3}\neq0$. Likewise, using the equalities for $k_{3}$ and $k_{4}$ from (\ref{Eq:2ast}\label{**}), Verifier is convinced that
+        \begin{align*}
+            r_{1} = k_{3} / ((u / (c_{13}-s))-p) \label{Eq:6ast}\tag{******}
+        \end{align*}
+        for some constants $u \neq0$, $s$, $p$ known to Prover.
 
-        Suppose $k_{3}\neq0$. Likewise Verifier is convinced that
-        \begin{equation}
-            r_{1} = k_{3} \left(c_{13}  - s\right) / \left(u-p \left(c_{13} - s\right)\right) \text{ and }
-            r1'   = k_{3} \left(c_{13}' - s\right) / \left(u-p \left(c_{13}'- s\right)\right)\label{Eq:5ast}\tag{*****}
-        \end{equation}
-        for some constants $s$, $u$, $p$ known to Prover.
+        If $k_{1}\neq0$ and $k_{3}\neq0$ is the case, then, according to the (\ref{Eq:5ast}\label{*****}) and (\ref{Eq:6ast}\label{******}), $r_{1}$ gets completely expressed through each of the two independent randomnesses $c_{11}$ and $c_{13}$. That is, excluding $r_{1}$ from (\ref{Eq:5ast}\label{*****}) and (\ref{Eq:6ast}\label{******}), Verifier is convinced that Prover is able to express the randomness $c_{11}$ through the randomness $c_{13}$, that contradicts to the independence of them. Thus, Verifier is convinced in the first statement in (\ref{Eq:3ast}\label{***}).
+        
+        To prove the second statement in (\ref{Eq:3ast}\label{***}), we rewrite the system (\ref{Eq:2ast}\label{**}) as
+        \begin{equation*}
+            \left\{
+            \begin{array}{l}\label{Eq:7ast}\tag{*******}
+            k_{1} = \left(r_{1} a' - r_{1}' a\right)                /\left(r_{1} - r_{1}'\right)\\
+            k_{2} = \left(r_{1} a' c_{11}' - r_{1}' a c_{11}\right) /\left(r_{1} - r_{1}'\right)\\
+            k_{3} = \left(r_{1} d' e_{13}' - r_{1}' d e_{13} \right) /\left(r_{1} - r_{1}'\right)\\
+            k_{4} = \left(r_{1} d' - r_{1}' d\right)   /\left(r_{1} - r_{1}'\right)\\
+            \end{array}\right. 
+            \text{, where } \\
+            \left\{
+            \begin{array}{l}
+            d=bc_{13}  \\
+            d'=b'c_{13}' \\
+            e_{13}=(1/c_{13}) \\
+            e_{13}'=(1/c_{13}')
+            \end{array}
+            \right.                        
+        \end{equation*}
+        The rewritten system (\ref{Eq:7ast}\label{*******}) is exactly the system (\ref{Eq:2ast}\label{**}), where $k_{3}$ and $k_{4}$ have swapped places. Moreover, the system (\ref{Eq:7ast}\label{*******}) carries the same properties as the system (\ref{Eq:2ast}\label{**}). Hence, using the equalities for $k_{3}$ and $k_{4}$ from (\ref{Eq:7ast}\label{*******}), Verifier is convinced that
+        \begin{align*}
+        r_{1} = k_{4} / ((u' / (e_{13}-s'))-p')
+        \end{align*}
+        for some constants $u' \neq0$, $s'$, $p'$ known to Prover. From this, Verifier obtains a contradiction for the case if $k_{1}\neq0$ and $k_{4}\neq0$. Thus, the second statement in (\ref{Eq:3ast}\label{***}) is proven.
+        
+        Likewise, swapping $k_{1}$ and $k_{2}$ in (\ref{Eq:2ast}\label{**}) the same way as it has been done for $k_{3}$ and $k_{4}$, the third and fourth statements in (\ref{Eq:3ast}\label{***}) are proven.   
 
-        If $k_{1}\neq0$ and $k_{3}\neq0$ is the case, then, according to the (\ref{Eq:4ast}) and (\ref{Eq:5ast}), Verifier gets a contradiction, as $r_{1}$ gets completely expressed through each of the two independent randomness $c_{11}$ and $c_{13}$. Thus, Verifier is convinced that
-        \begin{equation}\label{Eq:6ast}
-            \text{both $k_{1}\neq0$ and $k_{3}\neq0$ never hold together.}\tag{******}
-        \end{equation}
-
-        The following implications hold when $k_{1}=0$: (from the (\ref{Eq:2ast}): $a'=q*r_{1}'$ and $a=q*r_{1}$) $\Rightarrow$ \\ ($a'/r_{1}'=q$ and $a/r_{1}=q$) $\Rightarrow$ (from the (\ref{Eq:3ast}): $q\left(c_{11} - t\right) = q\left(c_{11}'-t\right)$) $\Rightarrow$ $q=0$ $\Rightarrow$ ($a=0$ and $a'=0$) $\Rightarrow$ $k_{2}=0$.
-
-        Likewise, when $k_{3}=0$: ($b=0$ and $b'=0$) $\Rightarrow$ $k_{4}=0$.
-
-        Recalling (\ref{Eq:6ast}), Verifier is convinced that  $Z=k_{1}*P_{1} + k_{2}*Q_{1} + k_{3}*P_{2} + k_{4}*Q_{2}$, where the $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$ are known to Prover and either of ($k_{1}=0$ and $k_{2}=0$) and ($k_{3}=0$ and $k_{4}=0$) holds, never both.
-        That is, by the definitions of evidence and $\lin()$, Verifier has an evidence of
+        Recalling $Z=k_{1}P_{1} + k_{2}Q_{1} + k_{3}P_{2} + k_{4}Q_{2}$, where the $k_{1}$, $k_{2}$, $k_{3}$, $k_{4}$ are known to Prover, the conjunction (\ref{Eq:3ast}\label{***}) implies that, by the definitions of evidence and $\lin()$, Verifier has an evidence of
         \begin{gather*}
         	\text{either $Z=\lin\left(P_{1}, Q_{1}\right)$ or $Z=\lin\left(P_{2}, Q_{2}\right)$, never both}.
         \end{gather*}
@@ -873,7 +922,7 @@
             \text{either $H_{1}=\lin\left(P_{1}, Q_{1}\right)$ or $H_{1}=\lin\left(P_{2}, Q_{2}\right)$, never both}.
         \end{gather*}
 
-        It's not possible that ($Z=\lin\left(P_{1}, Q_{1}\right)$ and $H_{1}=\lin\left(P_{2},Q_{2}\right)$), now we prove it. Suppose ($Z=\lin\left(P_{1}, Q_{1}\right)$ and $H_{1} = \lin\left(P_{2}, Q_{2}\right)$), then, using (\ref{Eq:1ast}), Prover knows $z_{1}$, $z_{2}$, $h_{1}$, $h_{2}$: ($Z=z_{1} P_{1} + z_{2} Q_{1}$ and $H_{1} =h_{1}P_{2}+h_{2} Q_{2}$) $\Rightarrow$
+        It's not possible that ($Z=\lin\left(P_{1}, Q_{1}\right)$ and $H_{1}=\lin\left(P_{2},Q_{2}\right)$), now we prove it. Suppose ($Z=\lin\left(P_{1}, Q_{1}\right)$ and $H_{1} = \lin\left(P_{2}, Q_{2}\right)$), then, by definition of $\lin()$, Prover knows $z_{1}$, $z_{2}$, $h_{1}$, $h_{2}$: ($Z=z_{1} P_{1} + z_{2} Q_{1}$ and $H_{1} =h_{1}P_{2}+h_{2} Q_{2}$). Hence, (\ref{Eq:1ast}) rewrites as
         \begin{gather*}
         	z_{1} P_{1}+ z_{2} Q_{1}+r_{1}\left(h_{1}P_{2}+h_{2}Q_{2}\right) = a\left(P_{1}+c_{11}Q_{1}\right)+b\left(P_{2}+c_{13}Q_{2}\right).
         \end{gather*}
@@ -1081,15 +1130,15 @@
                 c_{\left(n-1\right),3}\right)\\
                 \Rsum\left(1, 2,
                 {\left[X_{j}\right]}_{j=2k}^{2k+1}, [],
-                c_{11}\right) =
+                c\right) =
                 X_{\left(2k\right)} +
-                c_{11} X_{\left(2k+1\right)},
+                c X_{\left(2k+1\right)},
                 \text{ where } k\in\left[0,\left(N/2\right)-1\right].\\
                 \end{array}
             \right.
         \end{equation*}
         
-        Informally, for $n>1$, $\Rsum\left(n, N, {\left[X_{j}\right]}_{j=0}^{N-1}, {\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1}, c_{n1}\right)$ is a weighted sum of its left and right subtrees with the weights $1$ and $c_{n1}$, respectively. The subtrees are the weighted sums of their left and right subtrees, and so on. For $n=1$, the Rsum's are leaves and are calculated directly as weighted sums of two elements, with the weights $1$, $c_{11}$.
+        Informally, for $n>1$, $\Rsum\left(n, N, {\left[X_{j}\right]}_{j=0}^{N-1}, {\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1}, c_{n1}\right)$ is a weighted sum of its left and right subtrees with the weights $1$ and $c_{n1}$, respectively. The subtrees are the weighted sums of their left and right subtrees, and so on. For $n=1$, the Rsum's are leaves and are calculated directly as weighted sums of two elements, with the weights $1$, $c_{11}$ or $1$, $c_{13}$.
     \end{titledefinition}
 
 % PROPERTY Rsum
@@ -1100,7 +1149,7 @@
             {\left[X_{j}\right]}_{j=0}^{N-1},
             {\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1},
             c_{n1}\right) =
-            \lin\left({\left[ X_{j}\right]}_{j=0}^{N-1}\right)
+            \lin\left({\left[ X_{j}\right]}_{j=0}^{N-1}\right).
         \end{equation*}
     \end{titleproperty}
 
@@ -1111,7 +1160,7 @@
 
 % LEMMA Lin2-Selector
     \begin{titlelemma}[Lin2-Selector]
-        For any $n>1$ and $N=2^{n}$, any vector of non-zero fixed elements ${\left[X_{j}\right]}_{j=0}^{N-1}$ such that $\ort\left({\left[X_{j}\right]}_{j=0}^{N-1}\right)$ holds, for any non-zero fixed element $Z$, a vector of $n$ non-zero elements ${\left[H_{i}\right]}_{i=1}^{n}$ where $H_{1}$ is fixed, and for a vector of non-zero scalars ${\left[r_{i}\right]}_{i=1}^{n}$, the following protocol (Table~\ref{Tab:3b}) is an evidence of $Z=\lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right)$, $s\in\left[0,N/2-1\right]$:
+        For any $n>1$ and $N=2^{n}$, any vector of non-zero fixed elements ${\left[X_{j}\right]}_{j=0}^{N-1}$ such that $\ort\left({\left[X_{j}\right]}_{j=0}^{N-1}\right)$ holds, for any non-zero fixed element $Z$, a vector of $n$ non-zero elements ${\left[H_{i}\right]}_{i=1}^{n}$ where $H_{1}$ is fixed, and for a vector of non-zero scalars ${\left[r_{i}\right]}_{i=1}^{n}$, the following protocol (Table~\ref{Tab:3b}) is an evidence of $Z=\lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right)$ for some known to Prover $s\in\left[0,N/2-1\right]$:
 
         \begin{table}[!htb]\centering
             \caption{Lin2-Selector lemma protocol.}\label{Tab:3b}
@@ -1360,10 +1409,10 @@
             Z = \lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right) \text{, $s\in\left[M/2, M-1\right]$.}
         \end{equation*}
         
-        Putting it all together, from the induction hypothesis for $n=m$, we have obtained, for $n=\left(m+1\right)$, that if the premise and protocol of this lemma are met, then Verifier has exactly one of the two evidences:
+        Putting it all together, from the induction hypothesis for $n=m$, we have obtained, for $n=\left(m+1\right)$, that if the premise and protocol of this lemma are met, then Verifier has exactly one of the two evidences,
         \begin{align*}
                & \left(Z=\lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right) \text{, $s\in\left[0,M/2-1\right]$}\right) \\
-            or & \left(Z=\lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right) \text{, $s\in\left[M/2,M-1\right]$}\right).
+            \text{or} & \left(Z=\lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right) \text{, $s\in\left[M/2,M-1\right]$}\right).
         \intertext{Unifying the intervals for $s$, we obtain, that Verifier has an evidence of}
                & Z=\lin\left(X_{\left(2s\right)}, X_{\left(2s+1\right)}\right) \text{, $s\in\left[0,M-1\right]$.}
         \end{align*}
@@ -1387,7 +1436,7 @@
 
 % DEFINITION Com2
     \begin{titledefinition}[Com2]
-        Given a vector $\vec{X}={\left[X_{j}\right]}_{j=0}^{N-1}$ of $N=2^{n}$ elements such that $\ort\left( \vec{X}\right)$ holds, two scalars $k_{0}$, $k_{1}$, and an integer index $s\in\left[0,N/2-1\right]$, let's define $\ComTwo\left(k_{0}, k_{1}, s, \vec{X}\right)$ as an element $\left(k_{0} X_{2s} + k_{1} X_{2s+1}\right)$. That is,
+        Given a vector $\vec{X}={\left[X_{j}\right]}_{j=0}^{N-1}$ of $N=2^{n}$ elements, $n>0$, such that $\ort\left( \vec{X}\right)$ holds, two scalars $k_{0}$, $k_{1}$, and an integer index $s\in\left[0,N/2-1\right]$, let's define $\ComTwo\left(k_{0}, k_{1}, s, \vec{X}\right)$ as an element $\left(k_{0} X_{2s} + k_{1} X_{2s+1}\right)$. That is,
         \begin{equation*}
             \ComTwo\left(k_{0}, k_{1}, s, \vec{X}\right) = k_{0} X_{2s} + k_{1} X_{2s+1}
         \end{equation*}
@@ -1397,7 +1446,7 @@
 
         By the OrtUniqueRepresentation lemma, if $Z$ has a $\left(k_{0}, k_{1}, s\right)$ opening over $\vec{X}$, then the opening $\left(k_{0}, k_{1}, s\right)$ is unique.
 
-        We call a $\ComTwo$ commitment as a commitment to a member-pair. Set of member-pairs ${\left[X_{j}\right]}_{j=0}^{N-1}$ is called a decoy set.
+        We call a $\ComTwo$ commitment as a commitment to a member-pair. A set of member-pairs ${\left[X_{j}\right]}_{j=0}^{N-1}$ is called a decoy set.
     \end{titledefinition}
 
 
@@ -1410,7 +1459,7 @@
     \end{equation*}
     where:
     \begin{itemize}
-        \item $\textbf{DecoySetGen}\left(n\right)$ is an arbitrary function that returns an element vector $\vec{X}= {\left[X_{j}\right]}_{j=0}^{N-1}$ of $N=2^{n}$ elements, such that $\ort\left(\vec{X}\right)$ holds. Each element in the generated $\vec{X}$ has a distribution that is independent of the distributions of other elements in the same $\vec{X}$ and is indistinguishable from the uniform randomness. Two vectors generated by the \textbf{DecoySetGen} may have non-empty intersection.
+        \item $\textbf{DecoySetGen}\left(n\right)$, where $n>1$, is an arbitrary function that returns an element vector $\vec{X}= {\left[X_{j}\right]}_{j=0}^{N-1}$ of $N=2^{n}$ elements such that $\ort\left(\vec{X}\right)$ holds. Each element in the generated $\vec{X}$ has a distribution that is independent of the distributions of other elements in the same $\vec{X}$ and is indistinguishable from the uniform randomness. Two vectors generated by the \textbf{DecoySetGen} may have a non-empty intersection.
 
         For any \textbf{DecoySetGen} implementation choice, the returned vector $\vec{X}$ orthogonality, independence of the element distributions of each other within the vector and their uniform randomness are to be guaranteed.
 
@@ -1428,7 +1477,7 @@
             \begin{lemmatable}
                 \LTl{1}{\\\strut\\\strut\\}
                 \LTl{2}{Prover:\\
-                    $(k_{0}, k_{1}, s)$, where: $k_{0}\neq0$, $s\in\left[0,N/2-1\right]$
+                    $(k_{0}, k_{1}, s)$, where $k_{0}\neq0$, $s\in\left[0,N/2-1\right]$
                     }
                 \LTl{3}{$w=k_{0}$\\
                     $k=k_{1}/w$\\
@@ -1520,7 +1569,7 @@
 
                 \LTtop{Prover and Verifier common parameters:
                     \begin{itemize}
-                        \item $n, N=2^{n}$,
+                        \item $n, N=2^{n}$, where $n>1$
                         \item a set of elements ${\left[X_{j}\right]}_{j=0}^{N-1} = \textbf{DecoySetGen}(n)$
                         \item a shared variable $i$ with assigned value $i=1$
                     \end{itemize}}
@@ -1539,7 +1588,7 @@
             Input: $n, {\left[X_{j}\right]}_{j=0}^{N-1},
             \left({\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1},
             c_{n}, Z, {\left[\left(r_{i}, H_{i}\right)\right]}_{i=1}^n,
-            c, T, t\right)$, where $N=2^{n}$\\
+            c, T, t\right)$, where $N=2^{n}, n>1$\\
             \hline
             $S=Z$\\
             For $i=1\dots n$:\\
@@ -1563,7 +1612,12 @@
         \item All steps of the \textbf{L2S.InteractionProcedure} are performed between the Prover and Verifier. On completion of the \textbf{L2S.InteractionProcedure} Verifier has a tuple $\left({\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1}, c_{n}, Z, {\left[\left(r_{i}, H_{i}\right)\right]}_{i=1}^n, c, T, t\right)$.
         \item Verifier calls the \textbf{L2S.Verif} for the decoy set and tuple obtained above. Iff the \textbf{L2S.Verif} returns 1, then the \textbf{L2S} protocol is completed successfully. As we prove below, the successful completion means $Z=\ComTwo\left(k_{0}, k_{1}, s, \vec{X}\right)$.
     \end{itemize}
-    Note, the \InvertLastBit\ function used in the \textbf{L2S.InteractionProcedure} takes an unsigned integer and returns this integer with inverted least significant bit in its binary representation. That is, $\InvertLastBit\left(i\right)=\left(2\left(i//2\right)+\left(i+1\right)\%2\right)$, where the $//$ and $\%$ are the quotient and remainder operators. We use the \InvertLastBit\ for indexes to switch between the left and right subtrees of a binary tree node.
+    Note, the \InvertLastBit\ function used in the \textbf{L2S.InteractionProcedure} takes an unsigned integer and returns this integer with inverted least significant bit in its binary representation. That is, it is defined as
+    \begin{equation*}{
+        \InvertLastBit\left(i\right)=\left(2\left(i//2\right)+\left(i+1\right)\%2\right) \text{, where the $//$ and $\%$ are the quotient and remainder operators.}	
+    }
+    \end{equation*}
+    We use the \InvertLastBit\ for the binary tree indexes, to switch between the left and right subtrees of a tree node.
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -1750,7 +1804,7 @@
 
     The random multiplier $q$ is reduced in the products $r_{i}H_{i}$. These products represent $\Rsum$'s, i.e., the subtree sums at heights $i$. That is, for each height $i$, the element $\left(Z+r_{1}H_{1}+\dots{}+r_{i-1}H_{i-1}\right)$ corresponds to a subtree that the index $s$ belongs to. At the same time, the element $r_{i}H_{i}$ corresponds to a complimentary subtree that the index $s$ doesn't belong to. The height $i=1$ is the only exclusion from this, as $Z$ has a fraction $k_{1}{/k}_{0}$ of its complimentary subtree, nevertheless, this difference has no effect on the transcript item independencies and uniformities.
 
-    All the elements $Z$, $r_{1}H_{1}$, $\dots$, $r_{i}H_{i}$ are obfuscated by the multiplier $w$. The multiplier $w$ is private and uniformly random, as $w=k_{0}$, where $k_{0}$ is uniformly random by the definition of \textbf{L2S.ComGen}. By the definition of $\Rsum$, each $r_{i}H_{i}$ is a linear combination of the elements from the ${\left[X_{j}\right]}_{j=0}^{N-1}$ with efficiently computable scalar coefficients. Moreover, all $r_{i}H_{i}$'s depend of the different non-intersecting subsets of the ${\left[X_{j}\right]}_{j=0}^{N-1}$.
+    All the elements $Z$, $r_{1}H_{1}$, $\dots$, $r_{i}H_{i}$ are obfuscated by the multiplier $w$. The multiplier $w$ is private and uniformly random, as $w=k_{0}$, where $k_{0}$ is uniformly random by the definition of \textbf{L2S.ComGen}. By the definition of $\Rsum$, each $r_{i}H_{i}$ is a linear combination of the elements from the ${\left[X_{j}\right]}_{j=0}^{N-1}$ with efficiently computable scalar coefficients. Moreover, all $r_{i}H_{i}$'s depend on the different non-intersecting subsets of the ${\left[X_{j}\right]}_{j=0}^{N-1}$.
 
     Using the terms introduced in \cite{4}, the $r_{i}H_{i}$'s and $Z$ are linearly independent degree 2 polynomials of a private set of the independent and random uniform scalars
     \begin{equation*}
@@ -1880,7 +1934,7 @@
             \begin{lemmatable}
                 \LTl{1}{\\\strut\\\strut\\}
                 \LTl[10pt]{2}{Prover:}
-                \LTl[10pt]{3}{$\left(k_{0}, k_{1}, s\right)$, where:$k_{0}\neq0$}
+                \LTl[10pt]{3}{$\left(k_{0}, k_{1}, s\right)$, where $k_{0}\neq0$}
                 \LTl[10pt]{4}{$s$ -- secret index, $s\in\left[0,N/2-1\right]$}
                 \LTl{5}{$Z_{0}=\ComTwo\left(k_{0}, k_{1}, s, {\left[X_{j}\right]}_{j=0}^{N-1} \right)$}
                 \LTl[10pt]{6}{$f$ $\leftarrow$ random, non-zero}
@@ -1921,7 +1975,7 @@
 
                 \LTtop{Prover and Verifier common parameters:
                     \begin{itemize}
-                        \item $n, N=2^{n}$,
+                        \item $n, N=2^{n}$, where $n>1$
                         \item a set of elements ${\left[X_{j}\right]}_{j=0}^{N-1} = \textbf{DecoySetGen}(n)$
                     \end{itemize}
                 }
@@ -1935,9 +1989,9 @@
         \caption{\textbf{iL2S.Verif} function.}\label{Tab:8}
         \begin{tabular}{|>{\raggedright\arraybackslash}p{0.9\linewidth}|}
             \hline
-            Input: $n, {\left[X_{j}\right]}_{j=0}^{N-1}$, where $N=2^{n}$,\\
-            $\left({Z}_{0},c_{0},T_{0},t_{0}\right)$,\\
-            $\left({\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1},
+            Input: $n, {\left[X_{j}\right]}_{j=0}^{N-1}$, where $N=2^{n}$, $n>1$,\\
+            \hspace{24pt} $\left({Z}_{0},c_{0},T_{0},t_{0}\right)$,\\
+            \hspace{24pt} $\left({\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1},
             c_{n}, Z, {\left[\left(r_{i}, H_{i}\right)\right]}_{i=1}^n,c, T, t\right)$\\
             \hline
             If $\left(t_{0} Z_{0} + c_{0}Z \right)==T_{0}$ then continue\\
@@ -1970,7 +2024,7 @@
             \item $Z_{0}$ is independent of the other items in the transcript, however, it is not uniformly random.
             \item $T_{0}$ is not independent, it is evaluated as $T_{0} = \left(t_{0} Z_{0} +c_{0} Z\right)$ from the items $\left(Z_{0},Z,c_{0},t_{0}\right)$.
         \end{itemize}
-        Thus, all $T_{0}$'s can be excluded from consideration, as they carry no information. We get to conclusion, that the \textbf{iL2S} transcript contains two dependent items: $T_{0}$ and $T$, that are evaluated from the other items. It contains the input commitments as $Z_{0}$, and there is no item, except for $T_{0}$, distinguishably dependent of $Z_{0}$ in the transcript. All the other items are independent and uniformly random.
+        Thus, all $T_{0}$'s can be excluded from consideration, as they carry no information. We get to conclusion, that the \textbf{iL2S} transcript contains two dependent items: $T_{0}$ and $T$, that are evaluated from the other items. It contains the input commitments as $Z_{0}$, and there is no item, except for $T_{0}$, distinguishably dependent on $Z_{0}$ in the transcript. All the other items are independent and uniformly random.
         \item \textbf{iL2S} simulator puts the input commitment in the place of $Z_{0}$ and fills in all the other places, except for the ones of $T_{0}$ and $T$, with the independent and uniformly random values. It puts the evaluated values $\left(t_{0} Z_{0} + c_{0}Z\right)$ and $\left(tW+cR\right)$ in the places of $T_{0}$ and $T$, respectively.
     \end{itemize}
 
@@ -2006,7 +2060,7 @@
             \multicolumn{2}{|>{\centering\arraybackslash}p{0.9\linewidth}|}{Prover and Verifier common parameters:
                 \begin{itemize}
                 \item $L$
-                \item $n, N=2^{n}$
+                \item $n, N=2^{n}$, where $n>1$
                 \end{itemize}
             }\\
             \hline
@@ -2052,8 +2106,8 @@
             \caption{\textbf{mL2S.JoinVerif} function.}\label{Tab:10}
             \begin{tabular}{|>{\raggedright\arraybackslash}p{0.9\linewidth}|}
                 \hline
-                Input: $L, n, {\left[X_{j}\right]}_{j=0}^{N-1}$, where $N=2^{n}$,\\
-                $
+                Input: $L, n, {\left[X_{j}\right]}_{j=0}^{N-1}$, where $N=2^{n}, n>1$,\\
+                \hspace{24pt} $
                     {\left(
                         \left(Z_{0}^{p},c_{0},T_{0}^{p},t_{0}^{p}\right),
                         \left(
@@ -2165,13 +2219,13 @@
     \end{titledefinition}
 
 % DEFINITION Any to scalar hash function $H_{\text{scalar}}(\dots)$
-    \begin{titledefinition}[Any to scalar hash function $H_{\text{scalar}}(\dots)$]
+    \begin{titledefinition}[Any to scalar hash function $\Hscalar(\dots)$]
         We call $\Hscalar(\dots)$ an ideal hash function that accepts any number of arguments of any type, i.e., the arguments are scalars in $\mathds{F}$ and points in $\mathds{G}$. It returns a scalar from $\mathds{F}$. The function is sensitive to its arguments order.
     \end{titledefinition}
 
 % DEFINITION Point to point hash function $H_{\text{point}}(\dots)$
-    \begin{titledefinition}[Point to point hash function $H_{\text{point}}(\dots)$]
-        We call $\Hpoint()$ an ideal hash function that accepts a points in $\mathds{G}$ and returns a point in $\mathds{G}$.
+    \begin{titledefinition}[Point to point hash function $\Hpoint(\dots)$]
+        We call $\Hpoint(\dots)$ an ideal hash function that accepts a points in $\mathds{G}$ and returns a point in $\mathds{G}$.
     \end{titledefinition}
 
 \paragraph*{Ideal hash functions and random oracles:}
@@ -2181,7 +2235,7 @@
 \paragraph*{Integers $n$, $N$, $L$:}
     We assume the integers $n$, $N$, $L$ have the following meaning hereinafter:
     \begin{itemize}
-        \item $N>1$ is a number of decoys, $N$ is a power of $2$ each time, $N/2$ is the number of decoy pairs
+        \item $N>2$ is a number of decoys, $N$ is a power of $2$ each time, $N/2$ is the number of decoy pairs
         \item $n=\log_{2}\left(N\right)$
         \item $L$ is a threshold for signature: $0<L<\left(N/2+1\right)$. For membership proof, $L$ is any number: $0<L$
     \end{itemize}
@@ -2337,12 +2391,12 @@
         |\textbullet~|And so on|\dots|, until all values $\mathtt{\left(c_{0}, {\left[\left(c_{i1}, c_{i3}\right)\right]}_{i=1}^{n-1} , c_{n}, {c}\right)}$ are restored. At this moment all values of $\mathtt{{\left[\left(Z_{0}^{p}, T_{0}^{p}, Z^{p}, t_{0}^{p}, {\left[\left(r_{i}^{p}, H_{i}^{p}\right)\right]}_{i=1}^{n}, T^{p}, t^{p}\right)\right]}_{p=1}^{L}}$ are extracted from the $\mathtt{{\left[\sigma^{p}\right]}_{p=1}^{L}}$.
         |\textbullet~|For $\mathtt{p=1\dots{}L}$:
                 If $\mathtt{\left(t_{0}^{p} Z_{0}^{p} + c_{0} Z^{p}\right)\neq T_{0}^{p}}$ then Return 0
-        |\textbullet~|Calculate $\mathtt{R=Rsum \left(n, N, {\left[X_{j}\right]}_{j=0}^{N-1}, {\left[\left(1, c_{i1}, {c}_{i3}\right)\right]}_{i=1}^{n-1}, c_{n}\right)}$
+        |\textbullet~|Calculate $\mathtt{R=Rsum \left(n, N, {\left[X_{j}\right]}_{j=0}^{N-1}, {\left[\left(c_{i1}, {c}_{i3}\right)\right]}_{i=1}^{n-1}, c_{n}\right)}$
         |\textbullet~|For $\mathtt{p=1\dots L}$:
                 Let $\mathtt{S=Z^{p}}$
                 For $\mathtt{i=1\dots n}$:
-                    $\mathtt{S=S+H_{i}^{p}}$
-                    If $\mathtt{(S==0)}$ or $\mathtt{(r_{i}^{p}==0)}$ then Return 0
+                    $\mathtt{S=S+r_{i}^{p}H_{i}^{p}}$
+                    If $\mathtt{(S==0)}$ or $\mathtt{(r_{i}^{p}==0)}$ or $\mathtt{(H_{i}^{p}==0)}$ then Return 0
                 $\mathtt{W=S}$
                 If $\mathtt{\left(t^{p} W+cR\right)\neq T^{p}}$ then Return 0
         |\textbullet~| Return 1
@@ -2353,10 +2407,10 @@
     Overall, the \textbf{mL2SHPoM} non-interactive proof scheme works in the following scenario:
     \begin{itemize}
         \item Prover and Verifier agree on the scheme implementation, particularly, on the \textbf{PreimageSetGen} and  \textbf{HashPoint} functions.
-        \item Knowing a set of private keys ${\left[\left(v^{p},s^{p}\right)\right]}_{p=1}^{L}$, that connect the elements of the member set ${\left[A^{p}\right]}_{p=1}^{L}$ returned by the \textbf{MemberSetGen} to the elements of the image set ${\left[P_{j}\right]}_{j=0}^{N/2-1}$ returned by the \textbf{GetImageSet}, Prover calls the \textbf{GetProof} using a seed $e$ and obtains a proof ${\left[\sigma^{p}\right]}_{p=1}^{L}$.
+        \item Knowing a set of private keys ${\left[\left(v^{p},s^{p}\right)\right]}_{p=1}^{L}$ that connect the elements of the member set ${\left[A^{p}\right]}_{p=1}^{L}$ returned by the \textbf{MemberSetGen} to the elements of the image set ${\left[P_{j}\right]}_{j=0}^{N/2-1}$ returned by the \textbf{GetImageSet}, Prover calls the \textbf{GetProof} using a seed $e$ and obtains a proof ${\left[\sigma^{p}\right]}_{p=1}^{L}$.
         \item Prover sends the proof ${\left[\sigma^{p}\right]}_{p=1}^{L}$ and the seed $e$ to Verifier.
         \item Verifier extracts ${\left[Z_{0}^{p}\right]}_{p=1}^{L}$ from the ${\left[\sigma^{p}\right]}_{p=1}^{L}$. The set ${\left[Z_{0}^{p}\right]}_{p=1}^{L}$ is exactly the set ${\left[A^{p}\right]}_{p=1}^{L}$ returned by the \textbf{MemberSetGen} on Prover's side.
-        \item Verifier calls \textbf{Verif} for the ${\left[\sigma^{p}\right]}_{p=1}^{L}$ and $e$. If $1$ is returned, then Verifier is convinced that Prover knows the private keys, which connect each element of the set ${\left[Z_{0}^{p}\right]}_{p=1}^{L}$ to an element of the ${\left[P_{j}\right]}_{j=0}^{N/2-1}$.
+        \item Verifier calls \textbf{Verif} for the ${\left[\sigma^{p}\right]}_{p=1}^{L}$ and $e$. If $1$ is returned, then Verifier is convinced that Prover knows the private keys that connect each element of the set ${\left[Z_{0}^{p}\right]}_{p=1}^{L}$ to an element of the ${\left[P_{j}\right]}_{j=0}^{N/2-1}$.
     \end{itemize}
 
 
@@ -2393,7 +2447,7 @@
             \hline
                               & \text{multi-exp}(N) & \text{single-exp} & \Hpoint \\
             \hline
-            \textbf{mL2SHPoM} & 1                   & nL+3L+1           & N+1     \\
+            \textbf{mL2SHPoM} & 1                   & nL+3L+2           & N     \\
             \hline
         \end{tabular}
     \end{table}
@@ -2466,7 +2520,7 @@
     So, we have to convince Verifier that
     \begin{equation*}
         \forall I\in{\left[I^{p}\right]}_{p=1}^{L} \exists
-        B\in {\left[B_{j}\right]}_{j=0}^{N/2-1},b:
+        \left( B\in {\left[B_{j}\right]}_{j=0}^{N/2-1},b \right):
         \left(B=bG \text{ and }
         I = \Hpoint \left(B\right)/b\right).
     \end{equation*}
@@ -2488,7 +2542,7 @@
     
     Thus, the signature size is now equal to the size of one \textbf{mL2SHPoM} proof. The signature verification complexity is equal to the \textbf{mL2SHPoM} proof verification complexity plus $L$ exponentiations for checking the points $zI$ in the member set and plus $N/2$ exponentiations for calculating the points $z\Hpoint\left(B\right)$ in the image set.
 
-    We optimize the $N/2$ exponentiations for the $z\Hpoint\left(B\right)$'s further: we redefine the \textbf{mL2SHPoM.PointHash} as $\lambda\left(B\right).\left(B+z\Hpoint\left(B\right)\right)$ and let the returned point $\left(B+z\Hpoint\left(B\right)\right)$ be lazily evaluated.
+    We further optimize the $N/2$ exponentiations for the $z\Hpoint\left(B\right)$'s: we redefine the \textbf{mL2SHPoM.PointHash} as $\lambda\left(B\right).\left(B+z\Hpoint\left(B\right)\right)$ and let the returned point $\left(B+z\Hpoint\left(B\right)\right)$ be lazily evaluated.
     That is, internally, the $\textbf{mL2SHPoM.PointHash}\left(B\right)$ becomes returning a 3-tuple $\left(B, z, \Hpoint\left(B\right)\right)$ that evaluates to $\left(B+z\Hpoint\left(B\right)\right)$ only where the evaluation result is actually consumed. We strictly define a law that regulates the meaning of the phrase `evaluation result is actually consumed' for it. The law is the following:
     \begin{itemize}
         \item a 3-tuple $\left(B, z, \Hpoint\left(B\right)\right)$ doesn't evaluate to $\left(B+z\Hpoint\left(B\right)\right)$ when it is moved to or from a vector or another data structure.
@@ -2508,7 +2562,7 @@
             \hline
                               & \text{multi-exp}(3N/2) & \text{single-exp} & \Hpoint \\
             \hline
-            \textbf{mL2SHPoM} & 1                      & nL+4L+1           & N+1     \\
+            \textbf{mL2SHPoM} & 1                      & nL+4L+2           & N     \\
             \hline
         \end{tabular}
     \end{table}
@@ -2636,7 +2690,7 @@
             \hline
                                 & \text{multi-exp}(3N/2) & \text{single-exp} & \Hpoint \\
             \hline
-            \textbf{mL2SLnkSig} & 1                      & nL+4L+1           & N+1     \\
+            \textbf{mL2SLnkSig} & 1                      & nL+4L+2           & N     \\
             \hline
         \end{tabular}
     \end{table}
@@ -2649,14 +2703,14 @@
                 \item $N$ is the ring size
                 \item $L$ is the threshold
                 \item $\mexp(3N)$ is the multi-exponentiation of $3N$ summands
-                \item $\Hpt(2N+1)$ is $2N+1$ calls to the $\Hpoint$
+                \item $\Hpt(2N)$ is $2N$ calls to the $\Hpoint$
             \end{itemize}
         }\label{Tab:18}
         \begin{tabular}{|*{3}{>{$}c<{$}|}}
             \hline
             & \text{Size} & \text{Verification complexity}\\
             \hline
-            \textbf{mL2SLnkSig} & 2L\cdot\log_{2} N + 8L + 1 & \mexp(3N) + L\cdot \log_{2} N+5L+1+ \Hpt(2N+1)\\
+            \textbf{mL2SLnkSig} & 2L\cdot\log_{2} N + 8L + 1 & \mexp(3N) + L\cdot \log_{2} N+5L+2+ \Hpt(2N)\\
             \hline
         \end{tabular}
     \end{table}
@@ -2664,7 +2718,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 % 8.3.5. Comparison with the recently proposed log-size schemes
-\subsubsection{Comparison with the recently proposed log-size schemes}
+\subsubsection{Comparison to the recently proposed log-size schemes}
     For the comparison we refer to the work of Sarang Noether \cite{14}, where proof sizes and verification complexities for some of the recently proposed top-performative schemes are shown in Tables 1, 2 \cite{14}.
 
     A direct performance comparison of our \textbf{mL2SLnkSig} signature to the schemes analyzed in \cite{14} is not possible due to the following reasons:
@@ -2674,7 +2728,7 @@
     \end{itemize}
     Nevertheless, assuming an $\Hpoint$ call is about ten times faster than an exponentiation, we can see that, for instance, for big $N$'s our signature asymptotic is not far from the RingCT~3.0 and from the Triptych-2 asymptotics
     \begin{equation*}
-        \mexp \left(3N\right)+ \Hpt\left(2N\right) vs. \mexp\left(4N\right) \text{ and vs. } \mexp\left(2N\right)\text{, respectively}.
+        \mexp \left(3N\right)+ \Hpt\left(2N\right) \text{ vs. } \mexp\left(4N\right) \text{ and vs. } \mexp\left(2N\right)\text{, respectively}.
     \end{equation*}
     Although, we have to acknowledge the RingCT 3.0 and the Triptych-2 provide asymptotically better verification time.
 
@@ -2698,8 +2752,6 @@
     It seems not difficult to append a simultaneous proof for the homomorphic commitment sum to the \textbf{mL2SLnkSig} linkable signature scheme.
 
     Assuming the homomorphic commitments are built using distinct generators $G_{1}$ and $G_{2}$, it's possible to add them to the elements of the ring. To separate them back from the $L$ proven members, it would require to extract the parts proportional to $G_{1}$ and $G_{2}$ along with the parts proportional to $G$ and to $\Hpoint\left(B\right)$.
-
-    An intuition is that this will require no additional $N$-size multi-exponentiation, only $\log_{2} N$ and $L$ components of the verification complexity will be increased.
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -2733,7 +2785,7 @@
 % Acknowledgements
 \section*{Acknowledgements}
     %
-    Author thanks all people, who had occasionally talked with him about privacy systems during this paper writing, and gratefully thanks Olga Kolesnikova for reading the early drafts and making amicable comments on the narrative.
+    Author thanks all people, who had occasionally talked with him about privacy systems during this paper writing, and gratefully thanks Olga Kolesnikova for reading the early drafts and making amicable comments on the narrative. Also, the author would like to thank Valeriy Pisarkov for the Lin2-Xor, Lin2-Selector lemmas and protocols proofreading.
 
 %----------------------------------------------------------------------------------------
 %    REFERENCES
